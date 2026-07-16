@@ -8,8 +8,18 @@ export const auth = betterAuth({
   }),
   emailAndPassword: {
     enabled: true,
-    requireEmailVerification: true,
+    requireEmailVerification: false,
     minPasswordLength: 8,
+    sendResetPassword: async ({ user, url }) => {
+      void sendPasswordResetEmail(user.email, url);
+    },
+  },
+  emailVerification: {
+    sendOnSignUp: true,
+    autoSignInAfterVerification: true,
+    sendVerificationEmail: async ({ user, url }) => {
+      void sendVerificationEmail(user.email, url);
+    },
   },
   socialProviders: {
     google: {
@@ -22,8 +32,8 @@ export const auth = betterAuth({
     },
   },
   session: {
-    expiresIn: 60 * 60 * 24 * 7, // 7 days
-    updateAge: 60 * 60 * 24, // 1 day
+    expiresIn: 60 * 60 * 24 * 7,
+    updateAge: 60 * 60 * 24,
     cookieCache: {
       enabled: true,
       maxAge: 5 * 60,
@@ -33,6 +43,20 @@ export const auth = betterAuth({
     enabled: true,
     window: 60,
     max: 20,
+  },
+  databaseHooks: {
+    user: {
+      create: {
+        after: async (user) => {
+          await db.credits.create({
+            data: { userId: user.id, balance: 50 },
+          });
+          await db.subscription.create({
+            data: { userId: user.id, plan: "FREE" },
+          });
+        },
+      },
+    },
   },
   secret: process.env.BETTER_AUTH_SECRET,
   baseURL: process.env.BETTER_AUTH_URL,

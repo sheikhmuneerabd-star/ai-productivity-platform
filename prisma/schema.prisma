@@ -26,6 +26,7 @@ model User {
   usageLogs     UsageLog[]
   history       ToolHistory[]
   favorites     Favorite[]
+  notifications Notification[]
 
   @@map("users")
 }
@@ -171,4 +172,18 @@ model Favorite {
 
   @@unique([userId, toolSlug])
   @@map("favorites")
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("notifications")
 }

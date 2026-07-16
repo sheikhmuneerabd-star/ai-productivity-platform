@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { ArrowUp, Bot, User } from "lucide-react";
+import { ArrowUp, Bot } from "lucide-react";
 
 interface Message {
   role: "user" | "assistant";
@@ -82,23 +82,24 @@ export function ChatWindow() {
         )}
 
         {messages.map((m, i) => (
-          <div key={i} className="flex items-start gap-3">
-            <div
-              className={
-                m.role === "user"
-                  ? "flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-paper-100"
-                  : "flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-amber-100"
-              }
-            >
-              {m.role === "user" ? (
-                <User className="h-3.5 w-3.5 text-paper-600" strokeWidth={1.75} />
-              ) : (
-                <Bot className="h-3.5 w-3.5 text-amber-600" strokeWidth={1.75} />
-              )}
-            </div>
-            <p className="mt-1 flex-1 whitespace-pre-wrap text-sm leading-relaxed text-paper-900">
-              {m.content || (isStreaming && i === messages.length - 1 ? "…" : "")}
-            </p>
+          <div
+            key={i}
+            className={m.role === "user" ? "flex justify-end" : "flex items-start gap-3"}
+          >
+            {m.role === "user" ? (
+              <div className="max-w-[75%] rounded-lg bg-[#d4cbcbb5] px-3.5 py-2.5 text-sm leading-relaxed text-black">
+                {m.content}
+              </div>
+            ) : (
+              <>
+                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-amber-100">
+                  <Bot className="h-3.5 w-3.5 text-amber-600" strokeWidth={1.75} />
+                </div>
+                <p className="mt-1 flex-1 whitespace-pre-wrap text-sm leading-relaxed text-paper-900">
+                  {m.content || (isStreaming && i === messages.length - 1 ? "…" : "")}
+                </p>
+              </>
+            )}
           </div>
         ))}
         <div ref={bottomRef} />
