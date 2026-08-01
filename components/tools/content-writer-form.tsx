@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { GenerationOutput } from "@/components/tools/generation-output";
+import { toast } from "sonner";
 
 const contentTypes = ["Blog post", "Article", "Social media post", "Newsletter"];
 const tones = ["Professional", "Casual", "Persuasive", "Friendly"];
@@ -82,7 +83,9 @@ export function ContentWriterForm({ isFavorite }: { isFavorite: boolean }) {
       });
 
       if (!res.ok || !res.body) {
-        setError(res.status === 402 ? "You're out of credits." : "Something went wrong.");
+        const message = res.status === 402 ? "You're out of credits." : "Something went wrong.";
+        setError(message);
+        toast.error(message);
         setIsStreaming(false);
         return;
       }

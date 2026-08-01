@@ -2,6 +2,8 @@
 
 import { useRef, useState } from "react";
 import { ArrowUp, Bot } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { toast } from "sonner";
 
 interface Message {
   role: "user" | "assistant";
@@ -81,27 +83,32 @@ export function ChatWindow() {
           </div>
         )}
 
-        {messages.map((m, i) => (
-          <div
-            key={i}
-            className={m.role === "user" ? "flex justify-end" : "flex items-start gap-3"}
-          >
-            {m.role === "user" ? (
-              <div className="max-w-[75%] rounded-lg bg-[#d4cbcbb5] px-3.5 py-2.5 text-sm leading-relaxed text-black">
-                {m.content}
-              </div>
-            ) : (
-              <>
-                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-amber-100">
-                  <Bot className="h-3.5 w-3.5 text-amber-600" strokeWidth={1.75} />
+        <AnimatePresence initial={false}>
+          {messages.map((m, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.2 }}
+              className={m.role === "user" ? "flex justify-end" : "flex items-start gap-3"}
+            >
+              {m.role === "user" ? (
+                <div className="max-w-[75%] rounded-lg bg-graphite-900 px-3.5 py-2.5 text-sm leading-relaxed text-white">
+                  {m.content}
                 </div>
-                <p className="mt-1 flex-1 whitespace-pre-wrap text-sm leading-relaxed text-paper-900">
-                  {m.content || (isStreaming && i === messages.length - 1 ? "…" : "")}
-                </p>
-              </>
-            )}
-          </div>
-        ))}
+              ) : (
+                <>
+                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-amber-100">
+                    <Bot className="h-3.5 w-3.5 text-amber-600" strokeWidth={1.75} />
+                  </div>
+                  <p className="mt-1 flex-1 whitespace-pre-wrap text-sm leading-relaxed text-paper-900">
+                    {m.content || (isStreaming && i === messages.length - 1 ? "…" : "")}
+                  </p>
+                </>
+              )}
+            </motion.div>
+          ))}
+        </AnimatePresence>
         <div ref={bottomRef} />
       </div>
 
@@ -118,7 +125,7 @@ export function ChatWindow() {
             }}
             placeholder="Message the assistant..."
             rows={1}
-            className="flex-1 resize-none bg-transparent px-2 py-1.5 text-sm text-paper-900 placeholder:text-paper-400 focus:outline-none"
+            className="flex-1 resize-none bg-transparent px-2 py-1.5 text-base text-paper-900 placeholder:text-paper-400 focus:outline-none sm:text-sm"
           />
           <button
             onClick={sendMessage}

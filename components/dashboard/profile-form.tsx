@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Check } from "lucide-react";
+import { toast } from "sonner";
 
 export function ProfileForm({ initialName }: { initialName: string }) {
   const router = useRouter();
@@ -20,6 +21,7 @@ export function ProfileForm({ initialName }: { initialName: string }) {
     await authClient.updateUser({ name });
     setIsSaving(false);
     setSaved(true);
+    toast.success("Profile updated");
     router.refresh();
     setTimeout(() => setSaved(false), 2000);
   }

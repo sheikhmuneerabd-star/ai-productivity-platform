@@ -5,16 +5,16 @@ import type { ToolDefinition } from "@/types/tools";
 
 export function ToolCard({ tool, isFavorite }: { tool: ToolDefinition; isFavorite: boolean }) {
   const content = (
-    <div className="group flex h-full flex-col rounded-lg border border-paper-200 bg-white p-4 transition-colors hover:border-paper-300">
+    <div className="group flex h-full flex-col rounded-lg border border-paper-200 bg-white p-4 transition-all duration-200 hover:-translate-y-0.5 hover:border-paper-300 hover:shadow-sm">
       <div className="flex items-start justify-between">
-        <div className="flex h-9 w-9 items-center justify-center rounded-md bg-paper-100">
-          <tool.icon className="h-4 w-4 text-paper-700" strokeWidth={1.75} />
+        <div className="flex h-9 w-9 items-center justify-center rounded-md bg-paper-100 transition-colors group-hover:bg-amber-100">
+          <tool.icon className="h-4 w-4 text-paper-700 transition-colors group-hover:text-amber-600" strokeWidth={1.75} />
         </div>
 
         <div className="flex items-center gap-1.5">
           <FavoriteButton toolSlug={tool.slug} isFavorite={isFavorite} />
           {tool.available ? (
-            <ArrowUpRight className="h-4 w-4 text-paper-300 transition-colors group-hover:text-amber-500" />
+            <ArrowUpRight className="h-4 w-4 text-paper-300 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-amber-500" />
           ) : (
             <Lock className="h-3.5 w-3.5 text-paper-300" strokeWidth={1.75} />
           )}

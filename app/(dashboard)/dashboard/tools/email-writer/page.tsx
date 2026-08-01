@@ -10,12 +10,7 @@ export default async function EmailWriterPage() {
         <p className="font-mono text-[11px] uppercase tracking-wider text-paper-400">AI tools</p>
         <h1 className="font-display text-xl font-medium text-paper-900">Email writer</h1>
       </div>
-      <SimpleToolForm
-        toolSlug="email-writer"
-        inputLabel="What's the email about?"
-        inputPlaceholder="e.g. Follow up after a job interview, thanking them for their time..."
-        isFavorite={isFavorite}
-      />
+      <SimpleToolForm toolSlug="email-writer" isFavorite={isFavorite} />
     </div>
   );
 }

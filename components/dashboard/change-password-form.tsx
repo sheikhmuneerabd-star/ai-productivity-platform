@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { AlertCircle, Check } from "lucide-react";
+import { toast } from "sonner";
 
 export function ChangePasswordForm() {
   const [currentPassword, setCurrentPassword] = useState("");
@@ -29,12 +30,14 @@ export function ChangePasswordForm() {
 
     if (error) {
       setError(error.message || "Something went wrong");
+      toast.error(error.message || "Something went wrong");
       return;
     }
 
     setCurrentPassword("");
     setNewPassword("");
     setSaved(true);
+    toast.success("Password updated");
     setTimeout(() => setSaved(false), 2000);
   }
 

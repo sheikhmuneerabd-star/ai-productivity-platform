@@ -1,16 +1,23 @@
 import { Wallet, Zap, Crown, BookmarkCheck, ArrowRight } from "lucide-react";
 import { requireSession } from "@/lib/session";
+import { db } from "@/lib/db";
 import { Card } from "@/components/ui/card";
-
-const stats = [
-  { label: "Credits remaining", value: "50", icon: Wallet },
-  { label: "Generations today", value: "0", icon: Zap },
-  { label: "Saved outputs", value: "0", icon: BookmarkCheck },
-];
+import { AnimatedStat } from "@/components/dashboard/animated-stat";
 
 export default async function DashboardPage() {
   const session = await requireSession();
   const firstName = session.user.name.split(" ")[0];
+
+  const [credits, todayCount, savedCount] = await Promise.all([
+    db.credits.findUnique({ where: { userId: session.user.id } }),
+    db.usageLog.count({
+      where: {
+        userId: session.user.id,
+        createdAt: { gte: new Date(new Date().setHours(0, 0, 0, 0)) },
+      },
+    }),
+    db.favorite.count({ where: { userId: session.user.id } }),
+  ]);
 
   return (
     <div className="space-y-6">
@@ -20,20 +27,21 @@ export default async function DashboardPage() {
       </div>
 
       <div className="grid gap-3 sm:grid-cols-3">
-        {stats.map((stat) => (
-          <Card key={stat.label} className="p-4">
-            <div className="flex items-center justify-between">
-              <p className="text-xs text-paper-500">{stat.label}</p>
-              <stat.icon className="h-3.5 w-3.5 text-paper-400" strokeWidth={1.75} />
-            </div>
-            <p className="mt-2 font-mono text-2xl font-medium text-paper-900">{stat.value}</p>
-          </Card>
-        ))}
-
-        <Card className="flex flex-col justify-between bg-amber-100 p-4 shadow-none">
-          <p className="text-xs text-amber-600">Current plan</p>
-          <p className="font-display text-lg font-medium text-amber-900">Free</p>
-        </Card>
+        <AnimatedStat
+          label="Credits remaining"
+          value={credits?.balance ?? 0}
+          icon={<Wallet className="h-3.5 w-3.5 text-paper-400" strokeWidth={1.75} />}
+        />
+        <AnimatedStat
+          label="Generations today"
+          value={todayCount}
+          icon={<Zap className="h-3.5 w-3.5 text-paper-400" strokeWidth={1.75} />}
+        />
+        <AnimatedStat
+          label="Saved tools"
+          value={savedCount}
+          icon={<BookmarkCheck className="h-3.5 w-3.5 text-paper-400" strokeWidth={1.75} />}
+        />
       </div>
 
       <Card className="flex items-center justify-between p-4">

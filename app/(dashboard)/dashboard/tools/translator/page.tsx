@@ -14,8 +14,6 @@ export default async function TranslatorPage() {
       </div>
       <SimpleToolForm
         toolSlug="translator"
-        inputLabel="Text to translate"
-        inputPlaceholder="Enter text in any language..."
         isFavorite={isFavorite}
       />
     </div>

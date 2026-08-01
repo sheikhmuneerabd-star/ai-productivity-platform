@@ -12,8 +12,6 @@ export default async function GrammarFixerPage() {
       </div>
       <SimpleToolForm
         toolSlug="grammar-fixer"
-        inputLabel="Text to fix"
-        inputPlaceholder="Paste your text here..."
         isFavorite={isFavorite}
       />
     </div>

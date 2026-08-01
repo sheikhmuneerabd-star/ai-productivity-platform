@@ -12,8 +12,6 @@ export default async function SeoWriterPage() {
       </div>
       <SimpleToolForm
         toolSlug="seo-writer"
-        inputLabel="Target keyword or topic"
-        inputPlaceholder="e.g. best running shoes for beginners"
         isFavorite={isFavorite}
       />
     </div>

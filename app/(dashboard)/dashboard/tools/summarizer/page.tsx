@@ -12,8 +12,6 @@ export default async function SummarizerPage() {
       </div>
       <SimpleToolForm
         toolSlug="summarizer"
-        inputLabel="Text to summarize"
-        inputPlaceholder="Paste a long article, document, or text..."
         isFavorite={isFavorite}
       />
     </div>

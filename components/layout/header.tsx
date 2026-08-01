@@ -30,7 +30,7 @@ export function Header({ onMenuClick, user }: HeaderProps) {
         <Menu className="h-4 w-4 text-paper-500" />
       </button>
 
-      <h2 className="font-display text-sm font-medium text-paper-900">{currentPageTitle(pathname)}</h2>
+      <h2 className="truncate text-sm font-medium text-paper-900">{currentPageTitle(pathname)}</h2>
 
       <div className="flex-1" />
 

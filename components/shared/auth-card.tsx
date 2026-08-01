@@ -13,7 +13,7 @@ export function AuthCard({
   footer?: React.ReactNode;
 }) {
   return (
-    <div className="dot-grid flex min-h-screen items-center justify-center bg-graphite-950 px-4">
+    <div className="dot-grid flex min-h-screen items-center justify-center bg-graphite-950 px-4 py-10">
       <div className="w-full max-w-sm">
         <Link href="/" className="mb-8 flex items-center justify-center gap-2">
           <div className="flex h-7 w-7 items-center justify-center rounded-md bg-amber-500">

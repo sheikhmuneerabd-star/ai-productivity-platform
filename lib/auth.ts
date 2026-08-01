@@ -1,5 +1,6 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
+import { sendVerificationEmail, sendPasswordResetEmail } from "@/lib/email";
 import { db } from "@/lib/db";
 
 export const auth = betterAuth({
@@ -55,6 +56,15 @@ export const auth = betterAuth({
             data: { userId: user.id, plan: "FREE" },
           });
         },
+      },
+    },
+  },
+  user: {
+    additionalFields: {
+      role: {
+        type: "string",
+        required: false,
+        defaultValue: "USER",
       },
     },
   },

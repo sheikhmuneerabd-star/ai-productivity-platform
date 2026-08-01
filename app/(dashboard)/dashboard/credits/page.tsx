@@ -44,12 +44,12 @@ export default async function CreditsPage() {
             {recentUsage.map((log) => {
               const tool = tools.find((t) => t.slug === log.toolSlug);
               return (
-                <div key={log.id} className="flex items-center justify-between px-4 py-2.5">
-                  <div className="flex items-center gap-2">
-                    {tool && <tool.icon className="h-3.5 w-3.5 text-paper-500" strokeWidth={1.75} />}
-                    <span className="text-sm text-paper-900">{tool?.title ?? log.toolSlug}</span>
+                <div key={log.id} className="flex flex-wrap items-center justify-between gap-2 px-4 py-2.5">
+                  <div className="flex min-w-0 items-center gap-2">
+                    {tool && <tool.icon className="h-3.5 w-3.5 shrink-0 text-paper-500" strokeWidth={1.75} />}
+                    <span className="truncate text-sm text-paper-900">{tool?.title ?? log.toolSlug}</span>
                   </div>
-                  <div className="flex items-center gap-3">
+                  <div className="flex shrink-0 items-center gap-3">
                     <span className="font-mono text-xs text-paper-400">-1 credit</span>
                     <span className="font-mono text-[11px] text-paper-400">
                       {new Date(log.createdAt).toLocaleDateString()}
