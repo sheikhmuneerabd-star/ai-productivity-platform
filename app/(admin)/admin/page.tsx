@@ -2,17 +2,22 @@ import { Users, Zap, DollarSign, CreditCard } from "lucide-react";
 import { db } from "@/lib/db";
 import { Card } from "@/components/ui/card";
 
+type PlanCount = {
+  plan: "FREE" | "PRO" | "BUSINESS" | "ENTERPRISE";
+  _count: { plan: number };
+};
+
 export default async function AdminOverviewPage() {
   const [totalUsers, totalGenerations, activeSubscriptions, planCounts] = await Promise.all([
     db.user.count(),
     db.usageLog.count(),
     db.subscription.count({ where: { status: "ACTIVE", plan: { not: "FREE" } } }),
-    db.subscription.groupBy({ by: ["plan"], _count: { plan: true } }),
+    db.subscription.groupBy({ by: ["plan"], _count: { plan: true } }) as unknown as Promise<PlanCount[]>,
   ]);
 
   const planPrices: Record<string, number> = { PRO: 19, BUSINESS: 49 };
   const estimatedMrr = planCounts.reduce(
-    (sum: number, p: (typeof planCounts)[number]) => sum + (planPrices[p.plan] ?? 0) * p._count.plan,
+    (sum: number, p: PlanCount) => sum + (planPrices[p.plan] ?? 0) * p._count.plan,
     0
   );
 
@@ -45,7 +50,7 @@ export default async function AdminOverviewPage() {
       <Card className="p-4">
         <p className="mb-3 text-sm font-medium text-paper-900">Plan distribution</p>
         <div className="space-y-2">
-          {planCounts.map((p) => (
+          {planCounts.map((p: PlanCount) => (
             <div key={p.plan} className="flex items-center justify-between text-sm">
               <span className="text-paper-700">{p.plan}</span>
               <span className="font-mono text-paper-500">{p._count.plan}</span>
