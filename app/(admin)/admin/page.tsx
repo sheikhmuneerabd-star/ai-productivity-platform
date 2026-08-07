@@ -12,7 +12,7 @@ export default async function AdminOverviewPage() {
 
   const planPrices: Record<string, number> = { PRO: 19, BUSINESS: 49 };
   const estimatedMrr = planCounts.reduce(
-    (sum, p) => sum + (planPrices[p.plan] ?? 0) * p._count.plan,
+    (sum: number, p) => sum + (planPrices[p.plan] ?? 0) * p._count.plan,
     0
   );
 
