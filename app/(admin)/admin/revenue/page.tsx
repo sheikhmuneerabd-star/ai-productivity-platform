@@ -21,7 +21,7 @@ export default async function AdminRevenuePage() {
         <Card className="p-10 text-center text-sm text-paper-500">No paid subscriptions yet</Card>
       ) : (
         <div className="divide-y divide-paper-200 rounded-lg border border-paper-200 bg-white">
-          {subscriptions.map((s) => (
+          {subscriptions.map((s: (typeof subscriptions)[number]) => (
             <div key={s.id} className="flex items-center justify-between px-4 py-3">
               <div>
                 <p className="text-sm font-medium text-paper-900">{s.user.name}</p>
