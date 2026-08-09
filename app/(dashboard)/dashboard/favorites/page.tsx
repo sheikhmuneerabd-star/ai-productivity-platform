@@ -4,6 +4,7 @@ import { requireSession } from "@/lib/session";
 import { db } from "@/lib/db";
 import { tools } from "@/config/tools.config";
 import { Card } from "@/components/ui/card";
+import type { ToolDefinition } from "@/types/tools";
 
 export default async function FavoritesPage() {
   const session = await requireSession();
@@ -13,9 +14,9 @@ export default async function FavoritesPage() {
     orderBy: { createdAt: "desc" },
   });
 
-  const favoriteTools = favorites
+  const favoriteTools: ToolDefinition[] = favorites
     .map((f: (typeof favorites)[number]) => tools.find((t) => t.slug === f.toolSlug))
-    .filter((t): t is NonNullable<typeof t> => Boolean(t));
+    .filter((t: ToolDefinition | undefined): t is ToolDefinition => Boolean(t));
 
   return (
     <div className="space-y-6">
