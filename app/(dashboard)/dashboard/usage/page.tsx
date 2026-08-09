@@ -35,8 +35,8 @@ export default async function UsagePage() {
         ) : (
           <Card className="space-y-3 p-4">
             {grouped
-              .sort((a, b) => b._count.toolSlug - a._count.toolSlug)
-              .map((g) => {
+              .sort((a: (typeof grouped)[number], b: (typeof grouped)[number]) => b._count.toolSlug - a._count.toolSlug)
+              .map((g: (typeof grouped)[number]) => {
                 const tool = tools.find((t) => t.slug === g.toolSlug);
                 const pct = (g._count.toolSlug / maxCount) * 100;
                 return (

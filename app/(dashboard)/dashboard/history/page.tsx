@@ -28,7 +28,7 @@ export default async function HistoryPage() {
         </Card>
       ) : (
         <div className="space-y-3">
-          {history.map((item) => {
+          {history.map((item: (typeof history)[number]) => {
             const tool = tools.find((t) => t.slug === item.toolSlug);
             return (
               <Card key={item.id} className="p-4">

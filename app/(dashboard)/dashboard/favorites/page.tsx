@@ -14,7 +14,7 @@ export default async function FavoritesPage() {
   });
 
   const favoriteTools = favorites
-    .map((f) => tools.find((t) => t.slug === f.toolSlug))
+    .map((f: (typeof favorites)[number]) => tools.find((t) => t.slug === f.toolSlug))
     .filter((t): t is NonNullable<typeof t> => Boolean(t));
 
   return (

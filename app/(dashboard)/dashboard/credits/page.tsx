@@ -41,7 +41,7 @@ export default async function CreditsPage() {
           <Card className="p-6 text-center text-sm text-paper-500">No usage yet</Card>
         ) : (
           <div className="divide-y divide-paper-200 rounded-lg border border-paper-200 bg-white">
-            {recentUsage.map((log) => {
+            {recentUsage.map((log: (typeof recentUsage)[number]) => {
               const tool = tools.find((t) => t.slug === log.toolSlug);
               return (
                 <div key={log.id} className="flex flex-wrap items-center justify-between gap-2 px-4 py-2.5">
