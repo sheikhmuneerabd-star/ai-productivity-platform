@@ -13,7 +13,7 @@ export default async function NotificationsPage() {
     take: 50,
   });
 
-  const hasUnread = notifications.some((n) => !n.read);
+  const hasUnread = notifications.some((n: (typeof notifications)[number]) => !n.read);
 
   return (
     <div className="space-y-6">
@@ -33,7 +33,7 @@ export default async function NotificationsPage() {
         </Card>
       ) : (
         <div className="divide-y divide-paper-200 rounded-lg border border-paper-200 bg-white">
-          {notifications.map((n) => (
+          {notifications.map((n: (typeof notifications)[number]) => (
             <div key={n.id} className="flex items-start gap-3 px-4 py-3">
               {!n.read && <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-500" />}
               <div className={n.read ? "ml-3.5" : ""}>
