@@ -56,7 +56,7 @@ export function Hero() {
           </Link>
           <Link
             href="#features"
-            className="rounded-md border border-graphite-700 px-5 py-2.5 text-sm text-amber-500 hover:bg-graphite-900"
+            className="rounded-md border border-graphite-700 px-5 py-2.5 text-sm text-white hover:bg-graphite-900"
           >
             See what's inside
           </Link>
