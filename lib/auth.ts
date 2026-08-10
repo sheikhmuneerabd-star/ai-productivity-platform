@@ -70,6 +70,10 @@ export const auth = betterAuth({
   },
   secret: process.env.BETTER_AUTH_SECRET,
   baseURL: process.env.BETTER_AUTH_URL,
+  trustedOrigins: [
+    "https://ai-productivity-platform-pro-phhhmqrnr-smmh-s-projects.vercel.app",
+    "https://ai-productivity-platform-pro-max.vercel.app",
+  ],
 });
 
 export type Session = typeof auth.$Infer.Session;
