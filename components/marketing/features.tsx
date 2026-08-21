@@ -1,6 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 import { tools } from "@/config/tools.config";
 
 const featured = tools.slice(0, 9);
@@ -37,23 +39,32 @@ export function Features() {
           className="mt-12 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3"
         >
           {featured.map((tool) => (
-            <motion.div
-              key={tool.slug}
-              variants={item}
-              className="rounded-lg border border-paper-200 bg-white p-5 transition-colors hover:border-paper-300"
-            >
-              <div className="flex h-9 w-9 items-center justify-center rounded-md bg-paper-100">
-                <tool.icon className="h-4 w-4 text-paper-700" strokeWidth={1.75} />
-              </div>
-              <p className="mt-3 text-sm font-medium text-paper-900">{tool.title}</p>
-              <p className="mt-0.5 text-xs text-paper-500">{tool.description}</p>
+            <motion.div key={tool.slug} variants={item}>
+              <Link
+                href={`/register?next=/dashboard/tools/${tool.slug}`}
+                className="group flex flex-col rounded-lg border border-paper-200 bg-white p-5 transition-colors hover:border-amber-400 hover:shadow-sm"
+              >
+                <div className="flex items-start justify-between">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-md bg-paper-100 group-hover:bg-amber-50">
+                    <tool.icon className="h-4 w-4 text-paper-700 group-hover:text-amber-600" strokeWidth={1.75} />
+                  </div>
+                  <ArrowUpRight className="h-3.5 w-3.5 text-paper-300 opacity-0 transition-opacity group-hover:opacity-100" />
+                </div>
+                <p className="mt-3 text-sm font-medium text-paper-900">{tool.title}</p>
+                <p className="mt-0.5 text-xs text-paper-500">{tool.description}</p>
+              </Link>
             </motion.div>
           ))}
         </motion.div>
 
-        <p className="mt-6 text-center text-xs text-paper-400">
-          + {tools.length - featured.length} more tools inside, including PDF chat, meeting notes, and code generation
-        </p>
+        <div className="mt-6 text-center">
+          <Link
+            href="/register"
+            className="text-xs text-amber-600 hover:text-amber-700"
+          >
+            + {tools.length - featured.length} more tools inside, including PDF chat, meeting notes, and code generation →
+          </Link>
+        </div>
       </div>
     </section>
   );

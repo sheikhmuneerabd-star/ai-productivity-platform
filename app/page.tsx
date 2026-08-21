@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
 import { MarketingNav } from "@/components/marketing/nav";
 import { Hero } from "@/components/marketing/hero";
+import { HowItWorks } from "@/components/marketing/how-it-works";
 import { Features } from "@/components/marketing/features";
 import { PricingSection } from "@/components/marketing/pricing-section";
 import { CtaSection, MarketingFooter } from "@/components/marketing/cta-footer";
 
 export const metadata: Metadata = {
-  title: "AI Platform — Every AI tool in one workbench",
+  title: "AI Assistant — One assistant, 18 tools, zero tab chaos",
   description:
-    "18 AI tools for writing, code, and productivity in a single dashboard. Start free with 50 credits.",
+    "A single AI assistant that writes, codes, summarizes, and translates — 18 tools in one dashboard. Start free with 50 credits.",
 };
 
 export default function HomePage() {
@@ -16,6 +17,7 @@ export default function HomePage() {
     <div>
       <MarketingNav />
       <Hero />
+      <HowItWorks />
       <Features />
       <PricingSection />
       <CtaSection />
